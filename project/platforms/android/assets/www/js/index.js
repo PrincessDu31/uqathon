@@ -27,8 +27,7 @@
     // onSuccess Geolocation
     //
 
-    var latitude;
-    var longitude;
+
 
     function onSuccess(position) {
         latitude = position.coords.latitude ;
