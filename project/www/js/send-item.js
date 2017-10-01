@@ -1,29 +1,40 @@
 
 
-function onSuccessLocalisation(position) {
-        latitude = position.coords.latitude ;
-        longitude = position.coords.longitude;
+// function onSuccessSendLocalisation(position) {
+      
+        
 
-        jQuery.ajax({
-		    url: "http://perso-etudiant.u-pem.fr/~eritoux/aura/api/register-item.php",
-	  		type: "POST",
-		    data: {latitude: latitude, longitude: longitude, content: $(".textarea-content").val()},
-		    dataType: "html",
-		    beforeSend: function(x) {
-		       	if (x && x.overrideMimeType) {
-		           	x.overrideMimeType("application/j-son;charset=UTF-8");
-	            }
-	        },
-		    success: function(result) {
-		     	alert("yes!");
-	        }
-		}); 
-
-}
+// }
 
 $(document).ready(function(){
 
 	$('#send-geolocalisation').click(function() {
-		navigator.geolocation.getCurrentPosition(onSuccessLocalisation, onError);
-	});
+
+		if ($(".textarea-title").val() != "" && $(".textarea-content").val() != "") {
+	        jQuery.ajax({
+			    url: "http://perso-etudiant.u-pem.fr/~eritoux/aura/api/register-item.php",
+		  		type: "POST",
+			    data: {latitude: latitude, longitude: longitude, title: $(".textarea-title").val(), content: $(".textarea-content").val(), place : currentLocation},
+			    dataType: "html",
+			    beforeSend: function(x) {
+			       	if (x && x.overrideMimeType) {
+			           	x.overrideMimeType("application/j-son;charset=UTF-8");
+		            }
+
+		        },
+			    success: function(result) {
+			     	alert("Création déposée !");
+					actualizeHome();
+					
+		        },
+		        error: function(result) {
+	                alert("error");
+	            }
+			});
+	    } 
+	    	$('#home-content').slideDown("slow", "swing");
+			$('#creation-interface-content').slideUp("slow", "swing");
+			$('.textarea-title').val("");
+			$('.textarea-content').val("");
+ 	});
 });

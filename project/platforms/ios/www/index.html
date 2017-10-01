@@ -29,38 +29,85 @@
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
         <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;"> -->
+        <meta charset="utf-8">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <title>Aura</title>
         <script type="text/javascript">
-            var latitude;
-            var longitude;
+            var latitude = 0;
+            var longitude = 0;
+            var currentLocation = 0;
+            var creationsItem = "";
+            var user;
+            var creationsListView = 0;
         </script>
+
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVQCnt4NIOdc0kF5oyrxirq31iBpN1isk&libraries=places"></script>
 
 
 
     </head>
     <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+
+
+
+        <div id="home-header"> <p class="artist-pseudo">nom d'artiste</p>
+            <div class="home-localisation">
+                <p class="name-place">Lieu GPS</p>
+                <p class="nb-in-place">NB</p>
+            </div>
+        </div>
+
+        <div id="home-content">
+        
+          
+
+            <div class="nb-creative-posts">
+                <h1>NB</h1>
+                <p>créations dans votre aura</p>
             </div>
 
+             
+
+            <div class="create">
+                
+            </div>
+        </div>
+
+
+        <div id="creation-interface-content">
+            <div class="create-text-close"> x </div>
+
+            <textarea name="textarea-title" row="1" class="textarea-title" placeholder="Titre"></textarea> 
+
+            <textarea name="textarea-content" class="textarea-content" placeholder="Exprimez-vous"></textarea> 
+            <p id="send-geolocalisation">Post-it</p>
 
         </div>
 
-    <textarea name="textarea-content" class="textarea-content" rows="4" cols="50">  </textarea> 
-    <p id="send-geolocalisation">Envoyer mon message</p>
-    <p id="get-items-geolocalisation">Des données de stockées ?</p>
+
+        <div id="creations-list">
+           
+
+        </div>
+
+ 
+        
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
         <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
         <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/session.js"></script>
+        <script type="text/javascript" src="js/getItemsByPlace.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/send-item.js"></script>
-        <script type="text/javascript" src="js/get-list-items.js"></script>
+        <script type="text/javascript" src="js/showCreationsList.js"></script>
+        <script type="text/javascript" src="js/createOnClick.js"></script>
+        <!-- <script type="text/javascript" src="js/get-list-items.js"></script> -->
+
+
     </body>
 </html>

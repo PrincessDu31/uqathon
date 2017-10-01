@@ -18,7 +18,7 @@
     <feature name="Geolocation">
         <param name="ios-package" value="CDVLocation" />
     </feature>
-    <name>Project</name>
+    <name>Aura</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
