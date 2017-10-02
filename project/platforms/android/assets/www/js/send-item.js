@@ -2,9 +2,11 @@
 
 // function onSuccessSendLocalisation(position) {
       
-        
 
 // }
+function afterSend() {
+    // do something
+}
 
 $(document).ready(function(){
 
@@ -14,7 +16,8 @@ $(document).ready(function(){
 	        jQuery.ajax({
 			    url: "http://perso-etudiant.u-pem.fr/~eritoux/aura/api/register-item.php",
 		  		type: "POST",
-			    data: {latitude: latitude, longitude: longitude, title: $(".textarea-title").val(), content: $(".textarea-content").val(), place : currentLocation},
+		  		crossDomain:"true",
+			    data: {latitude: latitude, longitude: longitude, title: $(".textarea-title").val().replace(/'/g, "\\'").replace(/\r?\n/g, '<br/>'), content: $(".textarea-content").val().replace(/'/g, "\\'").replace(/\r?\n/g, '<br/>'), place : currentLocation},
 			    dataType: "html",
 			    beforeSend: function(x) {
 			       	if (x && x.overrideMimeType) {
@@ -23,7 +26,7 @@ $(document).ready(function(){
 
 		        },
 			    success: function(result) {
-			     	alert("Création déposée !");
+			     	navigator.notification.alert("Création déposée !", afterSend, "", "");
 					actualizeHome();
 					
 		        },

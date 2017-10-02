@@ -12,6 +12,17 @@
 		return $diff;
 	}
 
+	function hashEquals($a, $b)
+	{
+		if ($a == $b) 
+			$res = "no changes";
+		else 
+			$res = "changes";
+
+		return $res;
+	}
+
+
 
 	function measure($lat1, $lon1, $lat2, $lon2){  // generally used geo measurement function
 	    // $R = 6378.137; // Radius of earth in KM
@@ -38,7 +49,7 @@
 	// $latitude = 48;
 	// $longitude = -80;
 
-
+	var $hash = 0;
 
     $str = "[";
 	// $items = $db->query("SELECT * FROM `aura_item_localisation`, `aura_item_text` WHERE aura_item_localisation.ID = aura_item_text.ID AND ('$latitude'-aura_item_localisation.latitude BETWEEN -1 AND 1 OR '$latitude' + aura_item_localisation.latitude BETWEEN -1 AND 1) AND ('$longitude'-aura_item_localisation.longitude BETWEEN -1 AND 1 OR '$longitude' + aura_item_localisation.longitude BETWEEN -1 AND 1) ");
@@ -55,9 +66,14 @@
 			if (!$firstItem) $str .= ", ";
 			else $firstItem = 0;
 
-			$str .= "{\"latitude\":\"". $item['latitude'] . "\", \"longitude\":\"" . $item['longitude'] . "\", \"content\":\"" . $item['content'] ."\" , \"title\":\"" . $item['title'] ."\"}";
+			$str .= "{\"id\":\"". $item['ID'] . "\", \"latitude\":\"". $item['latitude'] . "\", \"longitude\":\"" . $item['longitude'] . "\", \"content\":\"" . $item['content'] ."\" , \"title\":\"" . $item['title'] ."\"}";
+
+			$hash += $item['ID'];
 		}
 	}
+
+	$str .= ", {\"status\" : \" ". hashEquals($_POST['latitude'], $hash) ." \"}";
+
 
 	$str .= "]";
 

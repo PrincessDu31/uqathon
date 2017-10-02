@@ -91,19 +91,39 @@ function distance (lat1, lat2, lon1, lon2) {
     return Math.sqrt(Math.pow(difference(lat1,lat2), 2) + Math.pow(difference(lon1,lon2), 2) ) * 111.126925169;
 }
 
+function createHash() {
+    var sum = 0;
+    for (var i = creationsItem.length - 1; i >= 0; i--) {
+        sum += creationsItem[i].id;
+    }
+    return sum;
+}
+
+
+
+
 function actualizeHome () {
+
     jQuery.ajax({
                 url: "http://perso-etudiant.u-pem.fr/~eritoux/aura/api/get-list-items.php",
                 type: "POST",
-                data: {latitude: latitude, longitude: longitude},
+                data: {latitude: latitude, longitude: longitude, hash: createHash()},
+                crossDomain:"true",
                 dataType: "json",
+                ifModified:"true",
                 beforeSend: function(x) {
                     if (x && x.overrideMimeType) {
                         x.overrideMimeType("application/j-son;charset=UTF-8");
                     }
                 },
                 success: function(result) {
+
                     $(".nb-creative-posts h1").html(Object.keys(result).length);
+
+                    if (Object.keys(creationsItem).length == 0 && Object.keys(result).length > 0) 
+                        navigator.notification.vibrate(1000);
+
+
                     creationsItem = result;
 
                     // alert("longitude" + result[0]["latitude"] + ", longitude" + result[0]["longitude"] + ", content" + result[0]["content"]+ ", title" + result[0]["title"]);
@@ -112,6 +132,7 @@ function actualizeHome () {
                         $(".nb-creative-posts p").html("dans votre aura");
                     } else
                         $(".nb-creative-posts p").html("dans votre aura");
+
 
 
                     $('#creations-list').html("");
@@ -124,7 +145,8 @@ function actualizeHome () {
 
                 },
                 error: function(result) {
-                    alert("error");
+                    navigator.notification.alert("Une erreur est arrivée...", actualizeHome, "Erreur", "Réessayer");
+
                 }
             }); 
 }
@@ -150,16 +172,24 @@ function actualizeHome () {
     // onError Callback receives a PositionError object
     //
     function onError(error) {
-        alert('code: '    + error.code    + '\n' +
-              'message: ' + error.message + '\n');
+        //alert('code: '    + error.code    + '\n' +
+        //      'message: ' + error.message + '\n');
+        if (error.code == 2)   
+            navigator.notification.alert("Veuillez autoriser l'application a accéder à votre position.", initialize, "Erreur", "Réessayer");
+        else if (error.code == 3)   
+            navigator.notification.alert("Une erreur est survenue.", initialize, "Erreur", "Réessayer");
+        else
+            alert('code: '    + error.code    + '\n' +  'message: ' + error.message + '\n');
+
     }
 
 
 var app = {
     // Application Constructor
-    initialize: function() {
+    initialize: function(val) {
+
         // navigator.geolocation.getCurrentPosition(onSuccess, onError);
-        var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 30000 });
+        var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 20000 });
         // document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
     },
 
@@ -168,6 +198,7 @@ var app = {
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
+
         // this.receivedEvent('deviceready');
     },
 
