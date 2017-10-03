@@ -19,6 +19,9 @@
         },
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.uqat.uqathon.project"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
         }
     },
     "dependent_plugins": {

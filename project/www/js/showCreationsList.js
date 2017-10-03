@@ -13,11 +13,13 @@ $(document).ready(function(){
 
 
 	$('#home-header').click(function() {
-
+			$('.create-text-close').click();
 			// $('#home-content').css("display", "block");
 			$('#home-content').fadeIn("fast", "swing");
 
 			
 	});
+
+
 
 });

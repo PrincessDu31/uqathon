@@ -29,6 +29,21 @@ $(document).ready(function(){
     //
 
 
+
+window.addEventListener('native.hidekeyboard', keyboardHideHandler);
+window.addEventListener('native.showkeyboard', keyboardShowHandler);
+function keyboardHideHandler(e){
+    $('#home-header').slideDown("fast", "swing");
+    $('#creation-interface-content').css("padding-top", "25vh");
+}
+function keyboardShowHandler(e){
+    $('#home-header').slideUp("fast", "swing");
+    $('#creation-interface-content').css("padding-top", "5vh");
+}
+
+
+
+
     function getItemsByPlace() {
 
         jQuery.ajax({

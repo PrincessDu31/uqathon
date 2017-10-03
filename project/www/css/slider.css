@@ -1,0 +1,36 @@
+.ui-corner-all {
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.ui-slider-handle {	
+/*	left: 70.5882%;
+*/	background: white none repeat scroll 0% 0%;
+	min-width: 1em;
+	min-height: 1em;
+	z-index: 100;
+	border: 5px solid #34495e;
+	position: relative;
+	-webkit-border-radius: 15%;
+    //border-radius: 15%;
+	border-radius: 50%;
+
+}
+
+div.ui-slider {
+	height: 0.125em;
+	border: 1px solid #34495e;
+	/*background: #34495e;*/
+	margin: 1.5em 0;
+	border-radius: 50px;
+}
+
+
+.slider {
+	margin-top: 5vh;
+	line-height: 1;
+}
+
+.ui-slider-range {
+	margin-top: -0.375em;
+}

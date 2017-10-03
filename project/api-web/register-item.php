@@ -4,6 +4,7 @@
 
 	$latitude=$_POST['latitude'];
 	$longitude =$_POST['longitude'];
+	$radius =$_POST['radius'];
 	$place =$_POST['place'];
 	
 	$typeOfContent = "TEXT";
@@ -12,10 +13,11 @@
 
 	$currentDate = date("Y-m-d H:i:s");
 	
-	$req = $db->prepare("INSERT INTO aura_item_localisation (latitude, longitude, datePublication, description) VALUES ('".$latitude."', '".$longitude."', '".$currentDate."', '".$place."')");
+	$req = $db->prepare("INSERT INTO aura_item_localisation (latitude, longitude, radius, datePublication, description) VALUES ('".$latitude."', '".$longitude."',  '".$radius."', '".$currentDate."', '".$place."')");
 	$req->execute(array(
 	    "latitude" => $latitude, 
 	    "longitude" => $longitude, 
+	    "radius" => $radius, 
 	    "datePublication" => $currentDate,
 	    "description" => $place
 	));

@@ -18,6 +18,9 @@
         },
         "cordova-plugin-vibration": {
             "PACKAGE_NAME": "com.uqat.uqathon.project"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.uqat.uqathon.project"
         }
     },
     "dependent_plugins": {
