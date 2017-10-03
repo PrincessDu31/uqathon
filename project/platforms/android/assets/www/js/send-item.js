@@ -12,12 +12,12 @@ $(document).ready(function(){
 
 	$('#send-geolocalisation').click(function() {
 
-		if ($(".textarea-title").val() != "" && $(".textarea-content").val() != "") {
+		if ($(".textarea-title").val() != "" || $(".textarea-content").val() != "") {
 	        jQuery.ajax({
 			    url: "http://perso-etudiant.u-pem.fr/~eritoux/aura/api/register-item.php",
 		  		type: "POST",
 		  		crossDomain:"true",
-			    data: {latitude: latitude, longitude: longitude, title: $(".textarea-title").val().replace(/'/g, "\\'").replace(/\r?\n/g, '<br/>'), content: $(".textarea-content").val().replace(/'/g, "\\'").replace(/\r?\n/g, '<br/>'), place : currentLocation},
+			    data: {latitude: latitude, longitude: longitude, title: $(".textarea-title").val().replace(/'/g, "\\'").replace(/"/g, '\\\\\"').replace(/\r?\n/g, '<br/>'), content: $(".textarea-content").val().replace(/'/g, "\\'").replace(/"/g, '\\\\\"').replace(/\r?\n/g, '<br/>'), place : currentLocation},
 			    dataType: "html",
 			    beforeSend: function(x) {
 			       	if (x && x.overrideMimeType) {

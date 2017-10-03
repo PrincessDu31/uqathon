@@ -14,10 +14,10 @@
 
 	function hashEquals($a, $b)
 	{
-		if ($a == $b) 
-			$res = "no changes";
-		else 
+		if ($a != $b) 
 			$res = "changes";
+		else 
+			$res = "no changes";
 
 		return $res;
 	}
@@ -49,7 +49,7 @@
 	// $latitude = 48;
 	// $longitude = -80;
 
-	var $hash = 0;
+	$hash = 0;
 
     $str = "[";
 	// $items = $db->query("SELECT * FROM `aura_item_localisation`, `aura_item_text` WHERE aura_item_localisation.ID = aura_item_text.ID AND ('$latitude'-aura_item_localisation.latitude BETWEEN -1 AND 1 OR '$latitude' + aura_item_localisation.latitude BETWEEN -1 AND 1) AND ('$longitude'-aura_item_localisation.longitude BETWEEN -1 AND 1 OR '$longitude' + aura_item_localisation.longitude BETWEEN -1 AND 1) ");
@@ -58,21 +58,27 @@
 	$items = $db->query("SELECT * FROM aura_item_localisation, aura_item_text WHERE aura_item_localisation.ID = aura_item_text.ID");
 
 	$firstItem = 1;
-		
+	
+
+	$str_content = "";
 	foreach($items as $item) {
 
 		if (measure($latitude,$longitude, $item['latitude'],$item['longitude']) < $item['radius']) {
 
-			if (!$firstItem) $str .= ", ";
+			if (!$firstItem) $str_content .= ", ";
 			else $firstItem = 0;
 
-			$str .= "{\"id\":\"". $item['ID'] . "\", \"latitude\":\"". $item['latitude'] . "\", \"longitude\":\"" . $item['longitude'] . "\", \"content\":\"" . $item['content'] ."\" , \"title\":\"" . $item['title'] ."\"}";
+			$str_content .= "{\"id\":\"". $item["ID"] . "\", \"latitude\":\"". $item['latitude'] . "\", \"longitude\":\"" . $item['longitude'] . "\", \"content\":\"" . $item['content'] ."\" , \"title\":\"" . $item['title'] ."\"}";
 
 			$hash += $item['ID'];
+			// $hash += 1;
 		}
 	}
 
-	$str .= ", {\"status\" : \" ". hashEquals($_POST['latitude'], $hash) ." \"}";
+	if (hashEquals($_POST['hash'], $hash) == "changes" && $hash > 0) 
+		$str .= $str_content . ",";
+	
+	$str .= "{\"status\" : \"". hashEquals($_POST['hash'], $hash) ."\", \"hash\" : \"". $hash ."\"}";
 
 
 	$str .= "]";

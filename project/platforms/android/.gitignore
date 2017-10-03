@@ -11,4 +11,8 @@ ant-gen
 gen
 out
 # Gradle builds
-/build
+/build/generated
+/build/intermediates
+/build/outputs/logs
+/build/tmp
+.DS_Store

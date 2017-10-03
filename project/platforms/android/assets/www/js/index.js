@@ -81,6 +81,8 @@ function ajaxReverseGeo() {
     }
 
 
+var hash = -1;
+
 
 function difference(a, b) {
     if (a > b) return a - b;
@@ -91,57 +93,61 @@ function distance (lat1, lat2, lon1, lon2) {
     return Math.sqrt(Math.pow(difference(lat1,lat2), 2) + Math.pow(difference(lon1,lon2), 2) ) * 111.126925169;
 }
 
-function createHash() {
-    var sum = 0;
-    for (var i = creationsItem.length - 1; i >= 0; i--) {
-        sum += creationsItem[i].id;
-    }
-    return sum;
-}
+// function createHash() {
+//     var sum = 0;
+//     for (var i = creationsItem.length - 1; i >= 0; i--) {
+//         sum += creationsItem[i].id;
+//     }
+//     return sum;
+// }
 
 
 
 
 function actualizeHome () {
-
     jQuery.ajax({
                 url: "http://perso-etudiant.u-pem.fr/~eritoux/aura/api/get-list-items.php",
                 type: "POST",
-                data: {latitude: latitude, longitude: longitude, hash: createHash()},
+                data: {latitude: latitude, longitude: longitude, hash: hash},
                 crossDomain:"true",
                 dataType: "json",
+                ifModified:"true",
                 beforeSend: function(x) {
                     if (x && x.overrideMimeType) {
                         x.overrideMimeType("application/j-son;charset=UTF-8");
                     }
                 },
                 success: function(result) {
+                    // alert(Object.keys(result).length - 1);
+                    // alert("status : " + result[Object.keys(result).length-1].status);
+                    if (result[Object.keys(result).length-1].status == "changes") {
 
-                    $(".nb-creative-posts h1").html(Object.keys(result).length);
+                        $(".nb-creative-posts h1").html(Object.keys(result).length -1);
 
-                    if (Object.keys(creationsItem).length == 0 && Object.keys(result).length > 0) 
-                        navigator.notification.vibrate(1000);
-
-
-                    creationsItem = result;
-
-                    // alert("longitude" + result[0]["latitude"] + ", longitude" + result[0]["longitude"] + ", content" + result[0]["content"]+ ", title" + result[0]["title"]);
-
-                    if (Object.keys(result).length > 1) {
-                        $(".nb-creative-posts p").html("dans votre aura");
-                    } else
-                        $(".nb-creative-posts p").html("dans votre aura");
+                        if (Object.keys(creationsItem).length -1 == 0 && Object.keys(result).length - 1 > 0) 
+                            navigator.notification.vibrate(1000);
 
 
+                        creationsItem = result;
+                        hash = result[Object.keys(result).length-1].hash;
 
-                    $('#creations-list').html("");
+                        // alert("longitude" + result[0]["latitude"] + ", longitude" + result[0]["longitude"] + ", content" + result[0]["content"]+ ", title" + result[0]["title"]);
+
+                        if (Object.keys(result).length -1 > 1) {
+                            $(".nb-creative-posts p").html("dans votre aura");
+                        } else
+                            $(".nb-creative-posts p").html("dans votre aura");
 
 
-                    for (var i = Object.keys(creationsItem).length - 1; i >= 0; i--) {
-                        // alert(creationsItem[i].content);
-                        $('#creations-list').append("<div class='a-creation-list'><p class='title-creation'>"+creationsItem[i].title+"</p><p class='content-creation'>"+creationsItem[i].content+"</p></div>");
+
+                        $('#creations-list').html("");
+
+
+                        for (var i = Object.keys(creationsItem).length - 2; i >= 0; i--) {
+                            // alert(creationsItem[i].content);
+                            $('#creations-list').append("<div class='a-creation-list'><p class='title-creation'>"+creationsItem[i].title+"</p><p class='content-creation'>"+creationsItem[i].content+"</p></div>");
+                        }
                     }
-
                 },
                 error: function(result) {
                     navigator.notification.alert("Une erreur est arrivée...", actualizeHome, "Erreur", "Réessayer");
@@ -160,7 +166,7 @@ function actualizeHome () {
             longitude = position.coords.longitude;
             
             // alert(latitude + " <br/>" + longitude);
-            
+
             actualizeHome();
             ajaxReverseGeo();
 
