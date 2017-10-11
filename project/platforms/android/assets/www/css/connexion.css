@@ -1,0 +1,10 @@
+.connexion {
+    margin: 0 auto;
+}
+
+#connexion {
+	height: 100%;
+	text-align: center;
+	width: 100%;
+	position: fixed;
+}

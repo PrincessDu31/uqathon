@@ -1,3 +1,5 @@
+
+
 $(document).ready(function(){
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,17 +31,24 @@ $(document).ready(function(){
     //
 
 
+    $('.artist-pseudo').html(window.localStorage.getItem(name_cookie_nameUser));
+    $('.artist-pseudo').click(function() {
+        window.localStorage.clear();window.location = "connexion.html";
+    });
+    
 
-window.addEventListener('native.hidekeyboard', keyboardHideHandler);
-window.addEventListener('native.showkeyboard', keyboardShowHandler);
-function keyboardHideHandler(e){
-    $('#home-header').slideDown("fast", "swing");
-    $('#creation-interface-content').css("padding-top", "25vh");
-}
-function keyboardShowHandler(e){
-    $('#home-header').slideUp("fast", "swing");
-    $('#creation-interface-content').css("padding-top", "5vh");
-}
+
+
+    window.addEventListener('native.hidekeyboard', keyboardHideHandler);
+    window.addEventListener('native.showkeyboard', keyboardShowHandler);
+    function keyboardHideHandler(e){
+        $('#home-header').slideDown("fast", "swing");
+        $('#creation-interface-content').css("padding-top", "25vh");
+    }
+    function keyboardShowHandler(e){
+        $('#home-header').slideUp("fast", "swing");
+        $('#creation-interface-content').css("padding-top", "5vh");
+    }
 
 
 
