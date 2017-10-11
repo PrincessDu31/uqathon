@@ -20,11 +20,11 @@
 // } );
 
 
-$(".visibility").html($(".radius-range").val());
+$(".visibility").html(Number($(".radius-range").val()));
 
 
 $('.radius-range').change(function() {
-  $(".visibility").html($(".radius-range").val());
+  $(".visibility").html(Number($(".radius-range").val()));
 });
 
 

@@ -61,7 +61,7 @@ function keyboardShowHandler(e){
                     $(".home-localisation p.nb-in-place").html(Object.keys(result).length);
                 },
                 error: function(result) {
-                    alert("error");
+                    alert("error getItemsByPlace");
                 }
         }); 
 
@@ -89,7 +89,7 @@ function ajaxReverseGeo() {
                     getItemsByPlace();
                 },
                 error: function(result) {
-                    alert("error");
+                    alert("error ajaxReverseGeo");
                 }
         });
 
