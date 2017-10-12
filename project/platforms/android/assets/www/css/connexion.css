@@ -1,8 +1,8 @@
-.connexion {
+.connexion, .create-account {
     margin: 0 auto;
 }
 
-#connexion {
+#connexion, #create-account {
 	height: 100%;
 	text-align: center;
 	width: 100%;

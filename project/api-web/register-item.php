@@ -11,6 +11,8 @@
 	$content =$_POST['content'];
 	$title =$_POST['title'];
 
+	$user_id =$_POST['user_id'];
+
 	$currentDate = date("Y-m-d H:i:s");
 	
 	$req = $db->prepare("INSERT INTO aura_item_localisation (latitude, longitude, radius, datePublication, description) VALUES ('".$latitude."', '".$longitude."',  '".$radius."', '".$currentDate."', '".$place."')");
@@ -30,10 +32,11 @@
 		break;
 	}
 
-	$req = $db->prepare("INSERT INTO aura_item (ID, itemType) VALUES ('".$idItem."', '".$typeOfContent."')");
+	$req = $db->prepare("INSERT INTO aura_item (ID, itemType, ID_creator) VALUES ('".$idItem."', '".$typeOfContent."', '".$user_id."')");
 	$req->execute(array(
 	    "ID" => $idItem, 
-	    "itemType" => $typeOfContent
+	    "itemType" => $typeOfContent,
+	    "ID_creator" => $user_id
 	));
 
 	if ($typeOfContent == "TEXT") {

@@ -17,7 +17,7 @@ $(document).ready(function(){
 			    url: "http://perso-etudiant.u-pem.fr/~eritoux/aura/api/register-item.php",
 		  		type: "POST",
 		  		crossDomain:"true",
-			    data: {latitude: latitude, longitude: longitude, title: $(".textarea-title").val().replace(/'/g, "\\'").replace(/"/g, '\\\\\"').replace(/\r?\n/g, '<br/>'), content: $(".textarea-content").val().replace(/'/g, "\\'").replace(/"/g, '\\\\\"').replace(/\r?\n/g, '<br/>'), radius : $(".radius-range").val(), place : currentLocation},
+			    data: {latitude: latitude, longitude: longitude, title: $(".textarea-title").val().replace(/'/g, "\\'").replace(/"/g, '\\\\\"').replace(/\r?\n/g, '<br/>'), content: $(".textarea-content").val().replace(/'/g, "\\'").replace(/"/g, '\\\\\"').replace(/\r?\n/g, '<br/>'), radius : $(".radius-range").val(), place : currentLocation, user_id : window.localStorage.getItem(name_cookie_idUser)},
 			    dataType: "html",
 			    beforeSend: function(x) {
 			       	if (x && x.overrideMimeType) {
