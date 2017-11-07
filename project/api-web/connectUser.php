@@ -1,11 +1,14 @@
 <?php
     include("connectDB.php");
+    include("hashSeed.php");
+
 
 	$pseudo=$_POST['pseudo'];
 	$psw =$_POST['password'];
+	$psw = hash('sha512',$psw.$seed);
 
 
-	$rep = $db->query("SELECT `ID_user`, `pseudo` FROM `aura_user` WHERE pseudo = \"$pseudo\" AND psw = \"$psw\" LIMIT 1"); 
+	$rep = $db->query("SELECT `ID_user`, `pseudo`, `activation` FROM `aura_user` WHERE (pseudo = \"$pseudo\" OR mail = \"$pseudo\") AND psw = \"$psw\" LIMIT 1"); 
 
 	echo "[";
 	if ($rep->rowCount() === 1) {
@@ -20,9 +23,13 @@
 
 		// $_SESSION['userId'] = $result["ID_user"];
 		// $_SESSION['userPseudo'] = $result["pseudo"];
-		
-		echo "{\"sucess\":\"ok\"}";
-		echo ",{\"id_user\":\"".$result["ID_user"]."\", \"pseudo_user\":\"".$result["pseudo"]."\"}";
+		if ($result["activation"] != 1) {
+			echo "{\"sucess\":\"not activate\"}";
+		} else {
+			echo "{\"sucess\":\"ok\"}";
+			echo ",{\"id_user\":\"".$result["ID_user"]."\", \"pseudo_user\":\"".$result["pseudo"]."\"}";			
+		}
+
 		
 
 	}

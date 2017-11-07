@@ -24,8 +24,13 @@ function ajaxFunctionGetUser(form){
 					// alert(window.localStorage.getItem(name_cookie_idUser));
 					// alert(window.localStorage.getItem(name_cookie_nameUser));
 					// if (window.localStorage.getItem(name_cookie_idUser) && window.localStorage.getItem(name_cookie_nameUser)) 
+						
+
 						window.location = "index.html"; 
 
+
+				} else if (rep[0]['sucess'] =="not activate") {
+					$(".reponse").html("Ce compte n'a pas été activé");
 				}
 				else
 					$(".reponse").html("Identifiants incorrects");

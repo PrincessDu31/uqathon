@@ -159,6 +159,7 @@ function actualizeHome () {
 
                         if (Object.keys(result).length -1 > 1) {
                             $(".nb-creative-posts p").html("dans votre aura");
+                            $(".nb-creative-posts p").html(latitude+"<br>"+longitude);
                         } else
                             $(".nb-creative-posts p").html("dans votre aura");
 
@@ -218,7 +219,7 @@ var app = {
     initialize: function(val) {
 
         // navigator.geolocation.getCurrentPosition(onSuccess, onError);
-        var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 20000 });
+        var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 5000 });
         // document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
     },
 

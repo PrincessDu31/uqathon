@@ -24,10 +24,18 @@ function ajaxFunctionGetUser(form){
 					// alert(window.localStorage.getItem(name_cookie_idUser));
 					// alert(window.localStorage.getItem(name_cookie_nameUser));
 					// if (window.localStorage.getItem(name_cookie_idUser) && window.localStorage.getItem(name_cookie_nameUser)) 
-						window.location = "index.html"; 
+						// window.location = "index.html"; 
+						 
+						navigator.notification.alert("Veuillez l'activer en cliquant sur le lien qui vous a été envoyé par mail.", function () {
+							window.location = "connexion.html";
+						}, "Votre compte a été créé.", "");
+
 
 				} else if (rep[0]['sucess'] == "pseudo already used") {
 					$(".reponse").html("Ce nom est déjà utilisé.");
+				}
+				 else if (rep[0]['sucess'] == "mail already used") {
+					$(".reponse").html("Un compte est déjà associé à ce mail.");
 				}
 				else
 					$(".reponse").html("Une erreur est survenue");
@@ -48,11 +56,11 @@ $(document).ready(function(){
 
 	// Set up an event listener for the contact form.
 	$(form).submit(function(event) {
+		$(".pseudo").val().replace(/'/g, "\\'").replace(/"/g, '\\\\\"');
 		// Stop the browser from submitting the form.
 		event.preventDefault();
-
+		
 		ajaxFunctionGetUser(form);
-
 
 	});
 

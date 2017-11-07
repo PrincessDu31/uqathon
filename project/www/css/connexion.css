@@ -8,3 +8,13 @@
 	width: 100%;
 	position: fixed;
 }
+
+form .links a {
+/*	margin: 1em;
+	display: block;*/
+	margin: .5em;
+}
+
+.links {
+	margin-top: 3em;
+}
